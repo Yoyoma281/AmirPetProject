@@ -22,10 +22,10 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore dependencies
-      run: dotnet restore src/AmitPetProject.csproj
+      run: dotnet restore src/AmirPetProject.csproj
 
     - name: Build
-      run: dotnet build src/AmitPetProject.csproj --no-restore
+      run: dotnet build src/AmirPetProject.csproj --no-restore
 
     - name: Test
-      run: dotnet test src/AmitPetProject.Tests/AmitPetProject.Tests.csproj --no-build --verbosity normal
+      run: dotnet test src/AmirPetProject.Tests/AmirPetProject.Tests.csproj --no-build --verbosity normal
