@@ -1,0 +1,37 @@
+﻿@model AmirPetProject.Models.ViewModel.ViewModel
+@{
+}
+@if (Model != null && Model.AnimalList != null )
+{
+    foreach (var animal in Model.AnimalList)
+    {
+        <div class="card-container">
+            
+        <div id="card">
+            <div class="card-body">
+                <img class="card-img-top" src="/Images/@animal.PictureName" alt="Card image cap">
+                <p class="headline">@animal.Name</p>
+                <div class="card-text">
+                    
+                    @if (animal.Comments != null &&
+                       ViewData["CurrentPage"] is "Details"||
+                       ViewData["CurrentPage"] is "Home"        )
+                       
+                    {
+                      <p class="card-text">@animal.Description</p>
+                      <span>Number of comments:</span>
+                      <span class="Numbers-text">@animal.Comments?.Count</span>
+                    }
+
+                        @if (ViewData["CurrentPage"] is "catalogue" || ViewData["CurrentPage"] is "Administrator")
+                    {
+                            <a class="CatgegoryButton" href="@Url.Action("Index", "Details",new{AnimalID = animal.AnimalID})">Details</a>
+
+                    }
+                    
+                </div>
+            </div>
+        </div>
+        </div>
+    }
+}

@@ -1,0 +1,208 @@
+﻿body {
+    background-image: url('../Images/Pets.jpg');
+    background-size: cover;
+    backdrop-filter: none;
+    transition: backdrop-filter 1s ease-in-out;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body.blurred {
+    backdrop-filter: blur(15px);
+}
+
+.container-fade-in {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fade-in-animation 1.0s ease-in forwards;
+}
+
+@keyframes fade-in-animation {
+from {
+        opacity: 0;
+     }
+
+to   {
+        opacity: 1;
+     }
+}
+
+.navbar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 30px;
+    line-height: 45px;
+    backdrop-filter: none !important;
+    filter: brightness(1);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar.fade-in {
+    opacity: 1;
+    background: none;
+}
+
+
+.navbar-brand img {
+    width: 20px;
+    height: 100px;
+}
+
+.navbar .btn {
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.navbar-brand {
+    margin-right: 10px;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 10px;
+}
+
+.navbar-nav .nav-link {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    transform: translateY(-5px);
+}
+
+.navbar-nav .nav-link:active {
+    transform: translateY(0);
+}
+
+
+#card{
+    filter: brightness(0.9);
+    width: auto;
+    height: auto;
+    background-color: #5347a0;
+    padding: 50px;
+    margin: 100px;
+    border: dashed;
+    border-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card-container {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+   
+}
+
+.card-text {
+    font-size: 24px;
+    font-weight: bolder;
+    font-family: Aharoni;
+    color: darkred;
+    text-align: center;
+}
+
+.headline {
+    font-size: 60px;
+    font-weight: bolder;
+    font-family: Aharoni;
+    color: darkred;
+    text-align: center;
+}
+
+.Numbers-text {
+    font-size: 35px;
+}
+
+.CatgegoryButton {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.CatgegoryButton:hover {
+    background-color: #3e8e41
+}
+
+.CatgegoryButton:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+
+.custom-select {
+    width: 200px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.date {
+    font-size: 11px
+}
+
+.comment-text {
+    font-size: 16px
+}
+
+.fs-12 {
+    font-size: 14px
+}
+
+.shadow-none {
+    box-shadow: none
+}
+
+
+.cursor:hover {
+    color: blue
+}
+
+.cursor {
+    cursor:pointer
+}
+
+.textarea {
+    resize: none
+    
+}
+
+#Admin-background {
+    background-image: url('../Images/Admin.png')
+}

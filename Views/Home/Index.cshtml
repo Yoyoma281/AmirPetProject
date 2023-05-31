@@ -1,0 +1,14 @@
+﻿@model AmirPetProject.Models.ViewModel.ViewModel
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home";
+    ViewData["CurrentPage"] = "Home";
+
+}
+
+<div class="card-container">
+    @await Html.PartialAsync("PartialView", Model)
+</div>
+
+  

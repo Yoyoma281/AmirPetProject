@@ -1,0 +1,29 @@
+﻿@model AmirPetProject.Models.ViewModel.ViewModel
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "catalogue";
+    ViewData["CurrentPage"] = "catalogue";
+}
+
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select an option
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @if (Model != null && Model.CatagoriesList != null)
+        {
+            foreach (var category in Model.CatagoriesList)
+            {
+                <a class="dropdown-item category-item" href="@Url.Action("Index", "catalogue", new { categoryId = category.CatagoryID })" data-category-id="@category.CatagoryID">@category.Name</a>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="card-container">
+    @await Html.PartialAsync("PartialView", Model)
+</div>
+
