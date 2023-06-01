@@ -54,7 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\Cat.png" />
     <None Include="wwwroot\Images\Dog.png" />
     <None Include="wwwroot\Images\Lizard.png" />
     <None Include="wwwroot\Scripts\Custom.js" />

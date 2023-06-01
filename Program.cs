@@ -26,7 +26,6 @@ internal class Program
         using (var scope = app.Services.CreateScope())
         {
             var ctx = scope.ServiceProvider.GetRequiredService<DB>();
-            ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
         }
         

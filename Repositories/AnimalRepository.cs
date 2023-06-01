@@ -14,6 +14,7 @@ public class AnimalRepository : IAnimalRepository
     {
         DBContext.Animals.Add(animal);
         DBContext.SaveChanges();
+
     }
     public void AddComment(int AnimalID, Comments comment)
     {
