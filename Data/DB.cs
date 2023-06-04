@@ -8,6 +8,7 @@ namespace AmirPetProject.Data
 
         public DB(DbContextOptions<DB> options) : base(options)
         {
+
         }
 
         public DbSet<Animals> Animals { get; set; }
