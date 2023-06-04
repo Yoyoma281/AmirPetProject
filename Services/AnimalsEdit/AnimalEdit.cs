@@ -52,16 +52,27 @@ namespace AmirPetProject.Services.AnimalsEdit
 
             _animalrepository.Update(existingAnimal.Last());
         }
-        public string UploadImage(IFormFile image)
+        public bool UploadImage(IFormFile image)
         {
-            string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", image.FileName);
-            var stream = new FileStream(uploadpath, FileMode.Create);
-            image.CopyToAsync(stream);
+            try
+            {
+                string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", image.FileName);
+                using (var stream = new FileStream(uploadPath, FileMode.Create))
+                {
+                    image.CopyTo(stream);
+                }
 
-            return image.FileName;
+                return true; 
+            }
+            catch (Exception)
+            {
+               
+                return false;
+            }
         }
+        
 
-       
+
     }
 
 }

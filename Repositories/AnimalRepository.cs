@@ -13,22 +13,23 @@ public class AnimalRepository : IAnimalRepository
     public void AddAnimal(Animals animal)
     {
         DBContext.Animals.Add(animal);
+        DBContext.SaveChanges();
     }
     public void Update(Animals animal)
     {
-        DBContext.Animals.Update(animal); 
-        DBContext.SaveChanges(); 
+        DBContext.Animals.Update(animal);
+        DBContext.SaveChanges();
     }
     public void AddComment(int AnimalID, Comments comment)
     {
         var animal = DBContext.Animals.Find(AnimalID);
-        
+
         if (animal != null && animal.Comments != null)
         {
             animal.Comments.Add(comment);
             DBContext.SaveChanges();
         }
-        
+
     }
     public Catagories GetCatagory(int ID)
     {
@@ -89,5 +90,26 @@ public class AnimalRepository : IAnimalRepository
 
         return catagories;
     }
-    
+    /// <summary>
+    /// .
+    /// </summary>
+    /// <param name="currentAnimalId"></param>
+    /// <returns>the next animal in the database, if no other animal exists returns an animal object with an error message.</returns>
+  
+    public Animals GetNextAnimal(int currentAnimalId)
+    {
+
+        var nextAnimal = DBContext.Animals
+            .Where(a => a.AnimalID > currentAnimalId)
+            .OrderBy(a => a.AnimalID)
+            .FirstOrDefault();
+        
+        if (nextAnimal == null)
+            return new Animals { Name = "No other animals were found in the database" };
+
+        
+        return nextAnimal;
+    }
+
+
 }

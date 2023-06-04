@@ -10,7 +10,7 @@ namespace AmirPetProject.Services.AnimalsEdit
         public void EditPicture(Animals animal, IFormFile image);
         public void EditDescription(Animals animal, string? description);
         public void EditCatagory(Animals animal, int? catagoryid);
-        public string UploadImage(IFormFile image);
+        public bool UploadImage(IFormFile image);
       
     }
 }

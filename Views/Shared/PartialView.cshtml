@@ -30,7 +30,7 @@
                         @if (ViewData["CurrentPage"] is "Administrator")
                     {
                             <a class="CatgegoryButton" href="@Url.Action("Index", "AnimalEdit",new{AnimalID = animal.AnimalID})">Edit</a>
-                            <a class="CatgegoryButton" href="@Url.Action("Index", "AnimalEdit",new{AnimalID = animal.AnimalID})">Delete</a>
+                            <a class="CatgegoryButton" href="@Url.Action("Delete", "AnimalEdit",new{AnimalID = animal.AnimalID})">Delete</a>
 
                     }
                     

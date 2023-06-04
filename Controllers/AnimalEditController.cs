@@ -84,8 +84,8 @@ namespace AmirPetProject.Controllers
         {
             var animal = _animalRepository.GetAnimalByID(AnimalID).Last();
             _animalRepository.Delete(animal);
-            
-            return View();
+
+            return RedirectToAction("Index", new { AnimalID = animal!.AnimalID});
         }
     }
 }
