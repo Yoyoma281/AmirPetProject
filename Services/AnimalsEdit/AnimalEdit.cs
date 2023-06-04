@@ -1,44 +1,67 @@
 ﻿using AmirPetProject.Data;
 using AmirPetProject.Models.DataBase;
+using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AmirPetProject.Services.AnimalsEdit
 {
-    public class AnimalEdit:IAnimelEdit
+    public class AnimalEdit : IAnimelEdit
     {
-        private readonly DB dbContext;
+        private readonly IAnimalRepository _animalrepository;
 
         //injects the dbContext service to this class.
-        public AnimalEdit(DB DBContext)
+        public AnimalEdit(DB DBContext, IAnimalRepository animalrepository)
         {
-            dbContext = DBContext;
+            _animalrepository = animalrepository;
         }
-        public bool AddAnimel()
+        
+        public void EditName(Animals animal, string? name)
         {
-            using (dbContext)
-            {
-                var existingAnimal = dbContext.Animals.FirstOrDefault(a => a.Name == "poop");
-                if (existingAnimal != null)
-                {
-                    throw new Exception("nah");
-                }
-                else
-                {
-                    var newAnimal = new Animals
-                    {
-                        Name = "poop",
-                        CatagoryID = 1,
-                        Age = 12,
-                        Description = "not gray and smart"
-                    };
+            IEnumerable<Animals> existingAnimal = _animalrepository.GetAnimalByID(animal.AnimalID);
+            existingAnimal.Last().Name = name;
 
-                    dbContext.Animals.Add(newAnimal);
-                    dbContext.SaveChanges();
+            _animalrepository.Update(existingAnimal.Last()); 
+            
+        }
+        public void EditAge(Animals animal, int? age)
+        {
+            IEnumerable<Animals> existingAnimal = _animalrepository.GetAnimalByID(animal.AnimalID);
+            existingAnimal.Last().Age = age;
 
-                    return true;
-                }
-            }
+            _animalrepository.Update(existingAnimal.Last());
+        }
+        public void EditPicture(Animals animal, IFormFile image)
+        {
+            UploadImage(image);
+            IEnumerable<Animals> existingAnimal = _animalrepository.GetAnimalByID(animal.AnimalID);
+            existingAnimal.Last().PictureName = image.FileName;
+            
+            _animalrepository.Update(existingAnimal.Last());
+        }
+        public void EditDescription(Animals animal, string? description)
+        {
+            IEnumerable<Animals> existingAnimal = _animalrepository.GetAnimalByID(animal.AnimalID);
+            existingAnimal.Last().Description = description;
+
+            _animalrepository.Update(existingAnimal.Last());
+        }
+        public void EditCatagory(Animals animal, int? catagoryid)
+        {
+            IEnumerable<Animals> existingAnimal = _animalrepository.GetAnimalByID(animal.AnimalID);
+            existingAnimal.Last().CatagoryID = catagoryid;
+
+            _animalrepository.Update(existingAnimal.Last());
+        }
+        public string UploadImage(IFormFile image)
+        {
+            string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", image.FileName);
+            var stream = new FileStream(uploadpath, FileMode.Create);
+            image.CopyToAsync(stream);
+
+            return image.FileName;
         }
 
+       
     }
 
 }

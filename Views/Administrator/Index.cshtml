@@ -6,37 +6,30 @@
     ViewData["CurrentPage"] = "Administrator";
 }
 
-<a class="" href="/NewAnimal/Index">AddAnimal</a>
 
-<form action="/Administrator/AddAnimal" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="exampleInputEmail1">Name</label>
-        <input name="Name" type="text" class="form-control"  value="" id="exampleInputEmail1" placeholder="Name" required>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Age</label>
-        <input name="Age" type="number" class="form-control" id="exampleInputPassword1" placeholder="Age" required>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Category</label>
-        <select name="Category" class="form-control" required>
-            <option value="">Select a category</option>
-            @if (Model != null && Model.CatagoriesList != null)
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select an option
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+       
+           @foreach (var category in Model.CatagoriesList!)
             {
-                foreach (var category in Model.CatagoriesList)
-                {
-                    <option value="@category.CatagoryID">@category.Name</option>
-                }
+            <a class="dropdown-item category-item" href="@Url.Action("Index", "Administrator", new { categoryId = category.CatagoryID })" data-category-id="@category.CatagoryID">@category.Name</a>
             }
-        </select>
+        
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Description</label>
-        <input name="Description" type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" required>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputFile">Image</label>
-        <input type="file" name="imageFile" accept="image/*" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
+
+
+
+<div class="card-container">
+    @await Html.PartialAsync("PartialView", Model)
+</div>
+
+
+
+
+
+        

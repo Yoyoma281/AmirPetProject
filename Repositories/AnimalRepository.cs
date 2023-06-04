@@ -13,8 +13,11 @@ public class AnimalRepository : IAnimalRepository
     public void AddAnimal(Animals animal)
     {
         DBContext.Animals.Add(animal);
-        DBContext.SaveChanges();
-
+    }
+    public void Update(Animals animal)
+    {
+        DBContext.Animals.Update(animal); 
+        DBContext.SaveChanges(); 
     }
     public void AddComment(int AnimalID, Comments comment)
     {
@@ -26,11 +29,6 @@ public class AnimalRepository : IAnimalRepository
             DBContext.SaveChanges();
         }
         
-    }
-    public void Update(Animals animal)
-    {
-        DBContext.Animals.Update(animal);
-        DBContext.SaveChanges();
     }
     public Catagories GetCatagory(int ID)
     {
@@ -91,6 +89,5 @@ public class AnimalRepository : IAnimalRepository
 
         return catagories;
     }
-
-
+    
 }

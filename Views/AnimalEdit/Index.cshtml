@@ -1,0 +1,55 @@
+﻿@model AmirPetProject.Models.ViewModel.ViewModel
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = $"Edit - {Model.AnimalList!.FirstOrDefault()?.Name}";
+    ViewData["CurrentPage"] = "AnimalEdit";
+}
+
+<form action="/AnimalEdit/Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="AnimalList[0].AnimalID" value="@Model.AnimalList?.FirstOrDefault()?.AnimalID">
+    <input type="hidden" name="AnimalList[0].PictureName" value="@Model.AnimalList?.FirstOrDefault()?.PictureName">
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input name="AnimalList[0].Name" type="text" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Name" id="exampleInputEmail1" placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Age</label>
+        <input name="AnimalList[0].Age" type="number" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Age" id="exampleInputPassword1" placeholder="Age">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Category</label>
+        <select name="AnimalList[0].CatagoryID" class="form-control">
+            <option value="">Select a category</option>
+            @if (Model != null && Model.CatagoriesList != null)
+            {
+                foreach (var category in Model.CatagoriesList)
+                {
+                    <option value="@category.CatagoryID" @(category.CatagoryID == Model.AnimalList?.FirstOrDefault()?.CatagoryID ? "selected" : "")>@category.Name</option>
+                }
+            }
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="exampleInputPassword1">Description</label>
+        <input name="AnimalList[0].Description" type="text" class="form-control" value="@Model!.AnimalList?.FirstOrDefault()?.Description" id="exampleInputPassword1" placeholder="Description">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputFile">Image</label>
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile" accept="image/*">
+            </div>
+        </div>
+    </div>
+
+
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="card-container">
+    @await Html.PartialAsync("PartialView", Model)
+</div>

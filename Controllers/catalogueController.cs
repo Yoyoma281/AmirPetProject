@@ -13,7 +13,7 @@ namespace AmirPetProject.Controllers
         }
 
 
-
+        
         public IActionResult Index(int? categoryId)
         {
             var viewModel = new ViewModel
