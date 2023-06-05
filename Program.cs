@@ -14,6 +14,7 @@ internal class Program
 
         builder.Services.AddTransient<IAnimalRepository, AnimalRepository>();
         builder.Services.AddScoped<IAnimelEdit, AnimalEdit>();
+       
         builder.Services.AddControllersWithViews();
         var app = builder.Build();
 

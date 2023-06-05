@@ -4,6 +4,7 @@
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "NewAnimal";
     ViewData["CurrentPage"] = "NewAnimal";
+    
 }
 
 <form action="/NewAnimal/AddAnimal" method="post" enctype="multipart/form-data">
@@ -38,3 +39,13 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<script>
+    var message = '@ViewBag.NewAnimal';
+    if (message) {
+        alert(message);
+    }
+</script>
+
+
+

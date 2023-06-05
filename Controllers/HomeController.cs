@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AmirPetProject.Controllers
 {
+    [LogActionFilter]
     public class HomeController : Controller
     {
 
@@ -16,6 +17,7 @@ namespace AmirPetProject.Controllers
             _animalRepository = animalRepository;
         }
 
+      
         public IActionResult Index()
         {
             var viewModel = new ViewModel

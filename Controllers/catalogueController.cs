@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AmirPetProject.Controllers
 {
+    [LogActionFilter]
     public class catalogueController : Controller
     {
         private IAnimalRepository _animalRepository;

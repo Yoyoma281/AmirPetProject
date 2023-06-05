@@ -31,20 +31,19 @@ public class AnimalRepository : IAnimalRepository
         }
 
     }
-    public Catagories GetCatagory(int ID)
-    {
-        var Catagory = DBContext.Catagories.Find(ID);
-
-        if (Catagory == null)
-            return new Catagories { Name = $"Catagory with ID: {ID} not found" };
-
-
-        return Catagory;
-    }
     public void Delete(Animals animal)
     {
         DBContext.Animals.Remove(animal);
         DBContext.SaveChanges();
+    }
+    public IEnumerable<Animals> GetFirstAnimal()
+    {
+        var animal = DBContext.Animals.FirstOrDefault();
+
+        if (animal == null)
+            return new List<Animals> { new Animals { Name = "No animals were found in database"} };
+        
+        return new List<Animals> { animal };
     }
     public IEnumerable<Animals> GetAnimalByID(int id)
     {

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AmirPetProject.Controllers
 {
+    [LogActionFilter]
     public class DetailsController : Controller
     {
         private IAnimalRepository _animalRepository;

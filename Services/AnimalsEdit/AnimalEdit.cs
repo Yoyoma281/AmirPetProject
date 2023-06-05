@@ -54,22 +54,31 @@ namespace AmirPetProject.Services.AnimalsEdit
         }
         public bool UploadImage(IFormFile image)
         {
+            string[] imageTypes = { "image/jpeg", "image/png", "image/gif" };
+
             try
             {
+               
+                if (!imageTypes.Contains(image.ContentType))
+                {
+                    return false; 
+                }
+
                 string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", image.FileName);
                 using (var stream = new FileStream(uploadPath, FileMode.Create))
                 {
                     image.CopyTo(stream);
                 }
 
-                return true; 
+                return true;
             }
+            
             catch (Exception)
             {
-               
                 return false;
             }
         }
+
         
 
 
