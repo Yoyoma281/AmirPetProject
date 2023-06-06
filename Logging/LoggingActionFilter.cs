@@ -58,7 +58,7 @@ public class LogActionFilter : ActionFilterAttribute
                     writer.WriteLine(message);
                 }
 
-            }
+            
         }
         catch (Exception)
         {
