@@ -25,6 +25,7 @@ namespace AmirPetProject.Controllers
             if (categoryId != null)
                 viewModel.AnimalList = _animalRepository.GetAnimalsByCatagory(categoryId.Value);
 
+            ViewData["CategoryList"] = viewModel.CatagoriesList;
 
             return View(viewModel);
 

@@ -11,7 +11,7 @@ namespace AmirPetProject.Controllers
     {
         private readonly IAnimalRepository _animalRepository;
         private readonly IAnimelEdit _animaledit;
-        string? Message;
+
 
         public NewAnimalController(IAnimalRepository myService, IAnimelEdit animaledit)
         {
@@ -33,29 +33,52 @@ namespace AmirPetProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAnimal([FromForm] ViewModel viewModel)
+        public IActionResult AddAnimal(string Name, int age, string Description, string Category, IFormFile imageFile)
         {
-            string NewAnimal;
-            string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName);
+            bool IsAnimalValid = false;
+            Animals animal = new Animals();
+            string fileExtension = "";
+            string Message = "Animal has failed to add, please check for correct input.";
 
-            if (_animaledit.UploadImage(viewModel.ImageFile))
+
+            if (imageFile != null && _animaledit.UploadImage(imageFile))
             {
-                var animal = viewModel.AnimalList!.First();
-                animal.PictureName = viewModel.ImageFile.FileName;
+                animal = new Animals
+                {
+                    Name = Name,
+                    Age = age,
+                    Description = Description,
+                    CatagoryID = int.Parse(Category),
+                    PictureName = imageFile.FileName
 
-                _animalRepository.AddAnimal(animal);
-                NewAnimal = $"Animal {animal.Name} has been successfully added";
+                };
+                fileExtension = Path.GetExtension(imageFile.FileName);
+
+                var context = new ValidationContext(animal);
+                var results = new List<ValidationResult>();
+
+                IsAnimalValid = Validator.TryValidateObject(animal, context, results, true);
+               
+                
+                if (IsAnimalValid)
+                {
+                    _animalRepository.AddAnimal(animal);
+                    Message = $"animal {animal.Name} has been successfully added";
+                }
+
             }
+
             else
             {
-                NewAnimal = $"[ERROR]: Failed to upload animal, " +
-                            $"File type [{fileExtension}] not supported, " +
+                
+                Message = $" [ERROR]: Failed to upload animal,  " +
+                            $" File type[ {fileExtension} ]not supported," +
                             $"please upload an image file (JPEG, PNG, GIF).";
+
             }
 
-            TempData["NewAnimal"] = NewAnimal;
+            TempData["NewAnimal"] = Message;
             return RedirectToAction("Index");
         }
-
     }
 }

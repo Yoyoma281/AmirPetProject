@@ -18,14 +18,14 @@ namespace AmirPetProject.Controllers
             _animalRepository = myService;
             _animalEdit = animalEdit;
         }
-        
+
         public IActionResult Index(int? categoryId)
         {
             var viewModel = new ViewModel
             {
                 CatagoriesList = _animalRepository.GetCatagories()
             };
-
+         
             if (categoryId != null)
                 viewModel.AnimalList = _animalRepository.GetAnimalsByCatagory(categoryId.Value);
             
