@@ -16,21 +16,7 @@ $(function() {
     });
 });
 
-//$(function () {
-//    $('.category-item').on('click', function (e) {
-//        e.preventDefault();
 
-//        var categoryId = $(this).data('category-id');
 
-//        $.post('@Url.Action("StoreCategoryId", "catalogue")', { CategoryId: categoryId }, function (data) {
-//            // Handle the response from the server if needed
-//            console.log(data);
-
-//            // Redirect to the desired action
-//            window.location.href = '@Url.Action("Index", "catalogue")';
-//        });
-
-//    });
-//});
 
 

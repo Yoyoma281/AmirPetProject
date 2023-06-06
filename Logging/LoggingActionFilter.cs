@@ -52,8 +52,7 @@ public class LogActionFilter : ActionFilterAttribute
 
         try
         {
-            lock (fileLock)
-            {
+           
                 using (StreamWriter writer = fileSystem.File.AppendText(logFilePath))
                 {
                     writer.WriteLine(message);

@@ -2,14 +2,13 @@
 using AmirPetProject.Models.ViewModel;
 using AmirPetProject.Services.AnimalsEdit;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 
 namespace AmirPetProject.Controllers
 {
     [LogActionFilter]
     public class NewAnimalController : Controller
     {
-
         private readonly IAnimalRepository _animalRepository;
         private readonly IAnimelEdit _animaledit;
         string? Message;
@@ -36,26 +35,30 @@ namespace AmirPetProject.Controllers
         [HttpPost]
         public IActionResult AddAnimal([FromForm] ViewModel viewModel)
         {
+            Animals animal;
             string NewAnimal;
+            string fileExtension = Path.GetExtension(imageFile.FileName);
 
-            string fileExtension = Path.GetExtension(viewModel.ImageFile!.FileName);
-
-            if (viewModel != null && viewModel.AnimalList != null && viewModel.AnimalList.Any() && ModelState.IsValid && _animaledit.UploadImage(viewModel.ImageFile!))
+            if (_animaledit.UploadImage(imageFile))
             {
                 var animal = viewModel.AnimalList.First();
                 animal.PictureName = viewModel.ImageFile.FileName;
 
+                };
                 _animalRepository.AddAnimal(animal);
                 NewAnimal = $"animal {animal.Name} has been successfully added";
             }
+
+
             else
             {
-                NewAnimal = $" [ERROR]: Failed to upload animal, " +
+
+                NewAnimal = $" [ERROR]: Failed to upload animal,  " +
                             $" File type[ {fileExtension} ]not supported," +
                             $"please upload an image file (JPEG, PNG, GIF).";
             }
 
-            TempData["NewAnimal"] = NewAnimal;
+            TempData["NewAnimal"] = Message;
             return RedirectToAction("Index");
         }
 

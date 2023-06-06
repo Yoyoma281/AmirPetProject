@@ -18,7 +18,7 @@ namespace AmirPetProject.Controllers
             _animalRepository = myService;
             _animalEdit = animalEdit;
         }
-
+        
         public IActionResult Index(int? categoryId)
         {
             var viewModel = new ViewModel
