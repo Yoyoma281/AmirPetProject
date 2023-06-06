@@ -52,16 +52,15 @@ public class LogActionFilter : ActionFilterAttribute
 
         try
         {
-            lock (fileLock)
-            {
+           
                 using (StreamWriter writer = fileSystem.File.AppendText(logFilePath))
                 {
                     writer.WriteLine(message);
                 }
 
-            }
+            
         }
-        catch (Exception)
+        catch (Exception e)
         {
             for (int i = 0; i < 10; i++)
             {
