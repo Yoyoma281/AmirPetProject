@@ -11,7 +11,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
         string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"]!;
         builder.Services.AddDbContext<DB>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
-
+       
         builder.Services.AddTransient<IAnimalRepository, AnimalRepository>();
         builder.Services.AddScoped<IAnimelEdit, AnimalEdit>();
        

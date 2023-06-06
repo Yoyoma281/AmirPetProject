@@ -61,7 +61,7 @@ public class LogActionFilter : ActionFilterAttribute
 
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             for (int i = 0; i < 10; i++)
             {

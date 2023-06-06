@@ -94,7 +94,6 @@ public class AnimalRepository : IAnimalRepository
     /// </summary>
     /// <param name="currentAnimalId"></param>
     /// <returns>the next animal in the database, if no other animal exists returns an animal object with an error message.</returns>
-  
     public Animals GetNextAnimal(int currentAnimalId)
     {
 

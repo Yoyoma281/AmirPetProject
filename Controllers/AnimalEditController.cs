@@ -33,7 +33,7 @@ namespace AmirPetProject.Controllers
 
             return View(animal);
         }
-        
+
 
         /// <summary>
         /// 2 models to be checked here, the ViewModel, which has the AnimalList and the file itself.

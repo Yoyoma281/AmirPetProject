@@ -2,6 +2,7 @@
 using AmirPetProject.Models.ViewModel;
 using AmirPetProject.Services.AnimalsEdit;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AmirPetProject.Controllers
 {
@@ -11,7 +12,7 @@ namespace AmirPetProject.Controllers
 
         private readonly IAnimalRepository _animalRepository;
         private readonly IAnimelEdit _animaledit;
-
+        string? Message;
 
         public NewAnimalController(IAnimalRepository myService, IAnimelEdit animaledit)
         {
@@ -33,39 +34,33 @@ namespace AmirPetProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAnimal(string Name, int age, string Description, string Category, IFormFile imageFile)
+        public IActionResult AddAnimal([FromForm] ViewModel viewModel)
         {
-            Animals animal;
             string NewAnimal;
-            string fileExtension = Path.GetExtension(imageFile.FileName);
 
-            if (_animaledit.UploadImage(imageFile))
+            string fileExtension = Path.GetExtension(viewModel.ImageFile!.FileName);
+
+            if (viewModel != null && viewModel.AnimalList != null && viewModel.AnimalList.Any() && ModelState.IsValid && _animaledit.UploadImage(viewModel.ImageFile!))
             {
-                animal = new Animals
-                {
-                    Name = Name,
-                    Age = age,
-                    Description = Description,
-                    CatagoryID = int.Parse(Category),
-                    PictureName = imageFile.FileName
+                var animal = viewModel.AnimalList.First();
+                animal.PictureName = viewModel.ImageFile.FileName;
 
-                };
                 _animalRepository.AddAnimal(animal);
                 NewAnimal = $"animal {animal.Name} has been successfully added";
             }
-
-
             else
             {
-
-                NewAnimal = $" [ERROR]: Failed to upload animal,  " +
+                NewAnimal = $" [ERROR]: Failed to upload animal, " +
                             $" File type[ {fileExtension} ]not supported," +
                             $"please upload an image file (JPEG, PNG, GIF).";
-
             }
 
             TempData["NewAnimal"] = NewAnimal;
             return RedirectToAction("Index");
         }
+
+
+
+
     }
 }

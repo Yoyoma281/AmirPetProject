@@ -12,11 +12,11 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
-        <input name="AnimalList[0].Name" type="text" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Name" id="exampleInputEmail1" placeholder="Name">
+        <input name="AnimalList[0].Name" type="text" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Name" id="exampleInputEmail1" placeholder="Name" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Age</label>
-        <input name="AnimalList[0].Age" type="number" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Age" id="exampleInputPassword1" placeholder="Age">
+        <input name="AnimalList[0].Age" type="number" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Age" id="exampleInputPassword1" placeholder="Age" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Category</label>
@@ -34,13 +34,13 @@
     
     <div class="form-group">
         <label for="exampleInputPassword1">Description</label>
-        <input name="AnimalList[0].Description" type="text" class="form-control" value="@Model!.AnimalList?.FirstOrDefault()?.Description" id="exampleInputPassword1" placeholder="Description">
+        <input name="AnimalList[0].Description" type="text" class="form-control" value="@Model!.AnimalList?.FirstOrDefault()?.Description" id="exampleInputPassword1" placeholder="Description" required>
     </div>
     <div class="form-group">
         <label for="exampleInputFile">Image</label>
         <div class="input-group">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile" accept="image/*">
+                <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile" accept="image/*" required>
             </div>
         </div>
     </div>
