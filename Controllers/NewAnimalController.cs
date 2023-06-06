@@ -2,6 +2,7 @@
 using AmirPetProject.Models.ViewModel;
 using AmirPetProject.Services.AnimalsEdit;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace AmirPetProject.Controllers
 {
@@ -35,36 +36,47 @@ namespace AmirPetProject.Controllers
         [HttpPost]
         public IActionResult AddAnimal(string Name, int age, string Description, string Category, IFormFile imageFile)
         {
-            Animals animal;
-            string NewAnimal;
+            bool IsAnimalValid = false;
+            Animals animal = new Animals();
+            string Message = "Animal has failed to add, please check for correct input.";
             string fileExtension = Path.GetExtension(imageFile.FileName);
+
+           
 
             if (_animaledit.UploadImage(imageFile))
             {
-                animal = new Animals
+                    var context = new ValidationContext(animal);
+                    var results = new List<ValidationResult>();
+                    IsAnimalValid = Validator.TryValidateObject(animal, context, results, true);
+                
+                
+                if (IsAnimalValid)
                 {
-                    Name = Name,
-                    Age = age,
-                    Description = Description,
-                    CatagoryID = int.Parse(Category),
-                    PictureName = imageFile.FileName
+                    animal = new Animals
+                    {
+                        Name = Name,
+                        Age = age,
+                        Description = Description,
+                        CatagoryID = int.Parse(Category),
+                        PictureName = imageFile.FileName
 
-                };
-                _animalRepository.AddAnimal(animal);
-                NewAnimal = $"animal {animal.Name} has been successfully added";
+                    };
+                    _animalRepository.AddAnimal(animal);
+                    Message = $"animal {animal.Name} has been successfully added";
+                }
+
             }
-
 
             else
             {
-
-                NewAnimal = $" [ERROR]: Failed to upload animal,  " +
+                
+                Message = $" [ERROR]: Failed to upload animal,  " +
                             $" File type[ {fileExtension} ]not supported," +
                             $"please upload an image file (JPEG, PNG, GIF).";
 
             }
 
-            TempData["NewAnimal"] = NewAnimal;
+            TempData["NewAnimal"] = Message;
             return RedirectToAction("Index");
         }
     }

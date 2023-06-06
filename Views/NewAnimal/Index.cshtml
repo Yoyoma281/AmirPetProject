@@ -10,11 +10,11 @@
 <form action="/NewAnimal/AddAnimal" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
-        <input name="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" required>
+        <input name="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" maxlength="50" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Age</label>
-        <input name="Age" type="number" class="form-control" id="exampleInputPassword1" placeholder="Age" required>
+        <input name="Age" type="number" class="form-control" id="exampleInputPassword1" placeholder="Age" min="1" max="100" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Category</label>
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Description</label>
-        <input name="Description" type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" required>
+        <input name="Description" type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" maxlength="100" required>
     </div>
     <div class="form-group">
         <label for="exampleInputFile">Image</label>

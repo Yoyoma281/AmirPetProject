@@ -17,9 +17,14 @@ public class AnimalRepository : IAnimalRepository
     }
     public void Update(Animals animal)
     {
-        DBContext.Animals.Update(animal);
-        DBContext.SaveChanges();
+        var existingAnimal = DBContext.Animals.Find(animal.AnimalID);
+        if (existingAnimal != null)
+        {
+            DBContext.Entry(existingAnimal).CurrentValues.SetValues(animal);
+            DBContext.SaveChanges();
+        }
     }
+
     public void AddComment(int AnimalID, Comments comment)
     {
         var animal = DBContext.Animals.Find(AnimalID);

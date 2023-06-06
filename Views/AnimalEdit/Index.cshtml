@@ -12,21 +12,23 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
-        <input name="AnimalList[0].Name" type="text" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Name" id="exampleInputEmail1" placeholder="Name">
-    </div>
+        <input name="AnimalList[0].Name" type="text" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Name" 
+               required id="exampleInputEmail1" placeholder="Name" maxlength="50">
+    </div> 
     <div class="form-group">
         <label for="exampleInputPassword1">Age</label>
-        <input name="AnimalList[0].Age" type="number" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Age" id="exampleInputPassword1" placeholder="Age">
+        <input  name="AnimalList[0].Age" type="number" class="form-control" value="@Model.AnimalList?.FirstOrDefault()?.Age"
+               required id="exampleInputPassword1" placeholder="Age" min="1" *@max="100" title="Please enter a number between 1 and 100">
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Category</label>
-        <select name="AnimalList[0].CatagoryID" class="form-control">
+        <select required name="AnimalList[0].CatagoryID" class="form-control" >
             <option value="">Select a category</option>
             @if (Model != null && Model.CatagoriesList != null)
             {
                 foreach (var category in Model.CatagoriesList)
                 {
-                    <option value="@category.CatagoryID" @(category.CatagoryID == Model.AnimalList?.FirstOrDefault()?.CatagoryID ? "selected" : "")>@category.Name</option>
+                    <option  value="@category.CatagoryID" @(category.CatagoryID == Model.AnimalList?.FirstOrDefault()?.CatagoryID ? "selected" : "")>@category.Name </option>
                 }
             }
         </select>
@@ -34,7 +36,8 @@
     
     <div class="form-group">
         <label for="exampleInputPassword1">Description</label>
-        <input name="AnimalList[0].Description" type="text" class="form-control" value="@Model!.AnimalList?.FirstOrDefault()?.Description" id="exampleInputPassword1" placeholder="Description">
+        <input name="AnimalList[0].Description" type="text" class="form-control" value="@Model!.AnimalList?.FirstOrDefault()?.Description"
+               required id="exampleInputPassword1" placeholder="Description" maxlength="100">
     </div>
     <div class="form-group">
         <label for="exampleInputFile">Image</label>
@@ -60,3 +63,5 @@
         alert(message);
     }
 </script>
+
+

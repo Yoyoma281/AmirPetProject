@@ -12,7 +12,7 @@ namespace AmirPetProject.Models.DataBase
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters.")]
         public string? Name { get; set; }
-
+        
         [Required(ErrorMessage = "Age is required.")]
         [Range(1, 100, ErrorMessage = "Age must be between 1 and 100.")]
         public int? Age { get; set; }
@@ -21,6 +21,7 @@ namespace AmirPetProject.Models.DataBase
         public string? PictureName { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
+        [StringLength(100, ErrorMessage = "Description cannot exceed 100 characters.")]
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Category ID is required.")]

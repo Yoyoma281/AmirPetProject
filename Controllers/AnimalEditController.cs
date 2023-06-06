@@ -1,7 +1,7 @@
-﻿using AmirPetProject.Models.DataBase;
-using AmirPetProject.Models.ViewModel;
+﻿using AmirPetProject.Models.ViewModel;
 using AmirPetProject.Services.AnimalsEdit;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace AmirPetProject.Controllers
 {
@@ -12,7 +12,7 @@ namespace AmirPetProject.Controllers
         private readonly IAnimalRepository _animalRepository;
         private readonly IAnimelEdit _animalEdit;
         string? Message;
-        
+
         public AnimalEditController(IAnimalRepository animalRepository, IAnimelEdit animaledit)
         {
             _animalRepository = animalRepository;
@@ -26,14 +26,14 @@ namespace AmirPetProject.Controllers
                 AnimalList = _animalRepository.GetAnimalByID(AnimalID)
             };
 
-           var newanimal = TempData["NewAnimal"] as string;
+            var newanimal = TempData["NewAnimal"] as string;
 
             if (newanimal != null)
                 ViewBag.NewAnimal = newanimal;
 
             return View(animal);
         }
-        
+
 
         /// <summary>
         /// 2 models to be checked here, the ViewModel, which has the AnimalList and the file itself.
@@ -46,9 +46,19 @@ namespace AmirPetProject.Controllers
         [HttpPost]
         public IActionResult Edit([FromForm] ViewModel viewModel)
         {
+            bool IsAnimalValid = false;
             var animal = viewModel.AnimalList?.FirstOrDefault();
 
-            if (viewModel.ImageFile != null)
+
+            //validates the animal model.
+            if (animal != null)
+            {
+                var context = new ValidationContext(animal);
+                var results = new List<ValidationResult>();
+                IsAnimalValid = Validator.TryValidateObject(animal, context, results, true);  
+            }
+
+            if (viewModel != null && viewModel.ImageFile != null)
             {
                 string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName);
 
@@ -57,19 +67,24 @@ namespace AmirPetProject.Controllers
                     _animalEdit.EditPicture(animal!, viewModel.ImageFile);
                     animal!.PictureName = viewModel.ImageFile.FileName;
                     _animalRepository.Update(animal!);
-                    Message = $"Animal {animal!.Name} has been successfully edited";
+                    Message = $"Image for {animal!.Name} has been successfully added";
                 }
+                
                 else
                 {
                     Message = $"[ERROR]: Failed to upload animal. File type [{fileExtension}] not supported. Please upload an image file (JPEG, PNG, GIF).";
                 }
             }
-            else
+
+            else if (IsAnimalValid)
             {
-                animal!.PictureName = viewModel.AnimalList!.LastOrDefault()?.PictureName;
+                animal!.PictureName = viewModel!.AnimalList!.LastOrDefault()?.PictureName;
                 _animalRepository.Update(animal!);
                 Message = $"Animal {animal!.Name} has been successfully edited";
             }
+
+            else 
+                Message = "Animal is invalid please check for correct input" ;
 
             TempData["NewAnimal"] = Message;
             return RedirectToAction("Index", new { AnimalID = animal!.AnimalID });
