@@ -35,35 +35,27 @@ namespace AmirPetProject.Controllers
         [HttpPost]
         public IActionResult AddAnimal([FromForm] ViewModel viewModel)
         {
-            Animals animal;
             string NewAnimal;
-            string fileExtension = Path.GetExtension(imageFile.FileName);
+            string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName);
 
-            if (_animaledit.UploadImage(imageFile))
+            if (_animaledit.UploadImage(viewModel.ImageFile))
             {
-                var animal = viewModel.AnimalList.First();
+                var animal = viewModel.AnimalList!.First();
                 animal.PictureName = viewModel.ImageFile.FileName;
 
-                };
                 _animalRepository.AddAnimal(animal);
-                NewAnimal = $"animal {animal.Name} has been successfully added";
+                NewAnimal = $"Animal {animal.Name} has been successfully added";
             }
-
-
             else
             {
-
-                NewAnimal = $" [ERROR]: Failed to upload animal,  " +
-                            $" File type[ {fileExtension} ]not supported," +
+                NewAnimal = $"[ERROR]: Failed to upload animal, " +
+                            $"File type [{fileExtension}] not supported, " +
                             $"please upload an image file (JPEG, PNG, GIF).";
             }
 
-            TempData["NewAnimal"] = Message;
+            TempData["NewAnimal"] = NewAnimal;
             return RedirectToAction("Index");
         }
-
-
-
 
     }
 }
