@@ -9,7 +9,6 @@ namespace AmirPetProject.Controllers
     [LogActionFilter]
     public class NewAnimalController : Controller
     {
-
         private readonly IAnimalRepository _animalRepository;
         private readonly IAnimelEdit _animaledit;
 
@@ -38,29 +37,31 @@ namespace AmirPetProject.Controllers
         {
             bool IsAnimalValid = false;
             Animals animal = new Animals();
+            string fileExtension = "";
             string Message = "Animal has failed to add, please check for correct input.";
-            string fileExtension = Path.GetExtension(imageFile.FileName);
 
-           
 
-            if (_animaledit.UploadImage(imageFile))
+            if (imageFile != null && _animaledit.UploadImage(imageFile))
             {
-                    var context = new ValidationContext(animal);
-                    var results = new List<ValidationResult>();
-                    IsAnimalValid = Validator.TryValidateObject(animal, context, results, true);
-                
+                animal = new Animals
+                {
+                    Name = Name,
+                    Age = age,
+                    Description = Description,
+                    CatagoryID = int.Parse(Category),
+                    PictureName = imageFile.FileName
+
+                };
+                fileExtension = Path.GetExtension(imageFile.FileName);
+
+                var context = new ValidationContext(animal);
+                var results = new List<ValidationResult>();
+
+                IsAnimalValid = Validator.TryValidateObject(animal, context, results, true);
+               
                 
                 if (IsAnimalValid)
                 {
-                    animal = new Animals
-                    {
-                        Name = Name,
-                        Age = age,
-                        Description = Description,
-                        CatagoryID = int.Parse(Category),
-                        PictureName = imageFile.FileName
-
-                    };
                     _animalRepository.AddAnimal(animal);
                     Message = $"animal {animal.Name} has been successfully added";
                 }

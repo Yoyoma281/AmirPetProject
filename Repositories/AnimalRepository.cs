@@ -24,7 +24,6 @@ public class AnimalRepository : IAnimalRepository
             DBContext.SaveChanges();
         }
     }
-
     public void AddComment(int AnimalID, Comments comment)
     {
         var animal = DBContext.Animals.Find(AnimalID);
