@@ -10,15 +10,15 @@
 <form action="/NewAnimal/AddAnimal" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
-        <input name="AnimalList[0].Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" required>
+        <input name="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" maxlength="50" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Age</label>
-        <input name="AnimalList[0].Age" type="number" class="form-control" id="exampleInputPassword1" placeholder="Age" required>
-    </div> 
+        <input name="Age" type="number" class="form-control" id="exampleInputPassword1" placeholder="Age" min="1" max="100" required>
+    </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Category</label>
-        <select name="AnimalList[0].CatagoryID" class="form-control" required>
+        <select name="Category" class="form-control" required>
             <option value="">Select a category</option>
             @if (Model != null && Model.CatagoriesList != null)
             {
@@ -31,11 +31,11 @@
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Description</label>
-        <input name="AnimalList[0].Description" type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" required>
+        <input name="Description" type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" maxlength="100" required>
     </div>
     <div class="form-group">
         <label for="exampleInputFile">Image</label>
-        <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile" accept="image/*" required>
+        <input type="file" name="imageFile" accept="image/*" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

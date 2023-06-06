@@ -10,10 +10,8 @@
     @RenderSection("Styles", required: false)
 </head>
  
-     
-
+    
 <body>
-   
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">PetShop</a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,21 +20,44 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link btn dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                        <div class="dropdown">
+                           
+                                <a class="dropdown-item" href="/NewAnimal/Index">New Animal</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Administrator", new { categoryId = 1 })">Reptiles</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Administrator", new { categoryId = 2 })">Mammals</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Administrator", new { categoryId = 3 })">Aquatic</a>
+                        </div>
+                        
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link btn" href="/Home/Index">Main Page</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn" href="/Administrator/Index">Admin</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link btn dropdown-toggle" href="#" id="catalogueDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Animals Catalogue
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="catalogueDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/catalogue/Index?categoryID=1">Reptiles</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/catalogue/Index?categoryID=2">Mammals</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/catalogue/Index?categoryID=3">Aquatic</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn" href="/catalogue/Index">Animals catalogue</a>
-                </li>
-               
-
-                
             </ul>
         </div>
+
     </nav>
+
+
 
     <div class="container-fade-in">
             @RenderBody()
